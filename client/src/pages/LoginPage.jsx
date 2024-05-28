@@ -1,37 +1,42 @@
 // src/pages/LoginPage.jsx
 
-import { useState, useContext } from "react"; // <== IMPORT useContext
+import { useState, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";  // <== IMPORT
+import { AuthContext } from "../context/auth.context";
 
 const API_URL = "http://localhost:5005";
 
 
-function LoginPage(props) {
+function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(undefined);
-  
-  const navigate = useNavigate();
-  
-  const { storeToken } = useContext(AuthContext);   //  <== ADD
 
-  
+  const navigate = useNavigate();
+
+  /*  UPDATE - get authenticateUser from the context */
+  const { storeToken, authenticateUser } = useContext(AuthContext);
+
+
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
 
-  
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     const requestBody = { email, password };
 
     axios.post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
-        console.log('JWT token', response.data.authToken );
-        
-        storeToken(response.data.authToken);       // <== ADD
-      
+        console.log('JWT token', response.data.authToken);
+
+        // Save the token in the localStorage.      
+        storeToken(response.data.authToken);
+
+        // Verify the token by sending a request 
+        // to the server's JWT validation endpoint. 
+        authenticateUser();                     // <== ADD
         navigate('/');
       })
       .catch((error) => {
@@ -39,7 +44,7 @@ function LoginPage(props) {
         setErrorMessage(errorDescription);
       })
   };
-  
+
   return (
     <div className="LoginPage">
       <h1>Login</h1>
@@ -63,7 +68,7 @@ function LoginPage(props) {
 
         <button type="submit">Login</button>
       </form>
-      { errorMessage && <p className="error-message">{errorMessage}</p> }
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>Don't have an account yet?</p>
       <Link to={"/signup"}> Sign Up</Link>

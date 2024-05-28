@@ -1,6 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-
+import { useEffect, useState } from 'react'
+import './../index.css'
 const API_URL = "http://localhost:5005";
 
 function FruitsPage() {
@@ -26,12 +26,13 @@ function FruitsPage() {
     }, [])
 
     return (
-        <div>FruitsPage
+        <div><h2 className='fruit-list-title'>Fruits List</h2>
+            <ul className='fruits-ul'>
+                {fruits.map((fruit) => (
+                    <div key={fruit._id}><li className='fruit-list-item'>{fruit.name}</li>  </div>
+                ))}
 
-            {fruits.map((fruit) => (
-                <div key={fruit._id}> {fruit.name} </div>
-            ))}
-
+            </ul>
         </div>
     )
 }

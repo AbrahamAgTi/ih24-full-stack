@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react'
 import './../index.css'
+import { Link } from 'react-router-dom';
 const API_URL = "http://localhost:5005";
 
 function FruitsPage() {
@@ -31,7 +32,7 @@ function FruitsPage() {
                 {fruits.map((fruit) => (
                     <div key={fruit._id}><li className='fruit-list-item'>{fruit.name}</li>  </div>
                 ))}
-
+                <Link to='/new Fruit' className='fruit-link'>Add fruit to the list </Link>
             </ul>
         </div>
     )

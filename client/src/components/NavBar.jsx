@@ -32,6 +32,7 @@ function NavBar() {
 
                 <button onClick={toggleTheme}>Toggle Theme</button>
             </div>
+
         </nav>
     )
 }

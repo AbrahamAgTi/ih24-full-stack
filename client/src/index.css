@@ -77,3 +77,11 @@ body {
 .fruit-list-title {
   text-align: center;
 }
+.fruit-link {
+  padding: 20px 40px;
+  margin-top: 20px;
+  background: white;
+  color: black;
+  border-radius: 10px;
+  text-decoration: none;
+}

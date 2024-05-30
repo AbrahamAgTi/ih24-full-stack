@@ -70,7 +70,7 @@ function LoginPage() {
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <p>Don't have an account yet?</p>
+      <p>Don&#39;t have an account yet?</p>
       <Link to={"/signup"}> Sign Up</Link>
     </div>
   )
